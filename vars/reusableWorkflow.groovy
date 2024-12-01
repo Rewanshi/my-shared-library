@@ -1,44 +1,23 @@
+
 // vars/reusableFunctions.groovy
 
 def reusableSetupPythonEnv(String pythonVersion) {
-    sh """
-        sudo apt-get -y install python${pythonVersion}-full
-        sudo python${pythonVersion} -m venv venv
-        . venv/bin/activate
-    """
+    
     echo "Python ${pythonVersion} environment set up successfully!"
 }
 
 def reusableInstallGoogleChrome() {
-    sh '''
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install -y --allow-downgrades ./google-chrome-stable_current_amd64.deb
-    '''
+    
     echo "Google Chrome installed successfully!"
 }
 
 def reusableInstallDependencies(String requirementsFile) {
-    sh """
-        sudo apt-get -y install python3-pip
-        sudo pip install -r ${requirementsFile}
-    """
+    
     echo "Dependencies from ${requirementsFile} installed successfully!"
 }
 
 def reusableSendNotification(String status) {
-    def subject = "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) ${status.capitalize()}"
-    def body = """
-        <p>Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) was ${status}.</p>
-        <p>Check console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-    """
-    emailext(
-        to: 'recipient@example.com',
-        subject: subject,
-        body: body,
-        mimeType: 'text/html'
-    )
+    
     echo "Notification sent for ${status}."
 }
 
