@@ -66,7 +66,7 @@ def fetchSecretsAndProcessing() {
                         emailext attachLog: false, attachmentsPattern: '', body: '''<p>Hi,</p>
                         <p>Bot is not executing as expected. Kindly, check.</p>
                         <p>Regards,<br>
-                        Intelera Bot</p>''', subject: 'MSC Stop Billing Bot Issue', to: 'example30@gmail.com'
+                        Intelera Bot</p>''', subject: 'MSC Stop Billing Bot Issue', to: 'rewanshichourasiya.v@gmail.com'
                     } else if (result == 2) {
                         echo "No record found with exit code 2"
                     }
@@ -76,7 +76,7 @@ def fetchSecretsAndProcessing() {
                     emailext attachLog: false, attachmentsPattern: 'reports/MSC_Claim_Denial_Bot_Report.xlsx', body: '''<p>Hi,</p>
                     <p>Please find attached MSC claim denial Bot report.</p>
                     <p>Regards,<br>
-                    Sohaib</p>''', subject: 'Claim Denial Bot Report', to: 'example30@gmail.com'
+                    Sohaib</p>''', subject: 'Claim Denial Bot Report', to: 'rewanshichourasiya.v@gmail.com'
                 }
             }
         }
