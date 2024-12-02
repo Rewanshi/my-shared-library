@@ -17,13 +17,13 @@ def checkoutCdc() {
 }
 
 // Stage: Setup Python Environment
-def setupPythonEnvironment() {
-    stage('Setup Python Environment') {
-        sh 'sudo apt-get -y install python3.10-full'
-        sh 'sudo python3 -m venv venv'
+//def setupPythonEnvironment() {
+    //stage('Setup Python Environment') {
+       // sh 'sudo apt-get -y install python3.10-full'
+      //  sh 'sudo python3 -m venv venv'
         // sh '. venv/bin/activate'
-    }
-}
+   // }
+//}
 
 // Stage: Install Google Chrome
 def installGoogleChrome() {
