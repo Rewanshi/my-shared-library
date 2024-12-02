@@ -3,38 +3,39 @@ def call() {
         agent any
 
         stages {
-            stage('Checkout CDC') {
+            stage('Checkout Code') {
                 steps {
-                    echo "Checkout"
+                    echo "Checking out the repository..."
                 }
             }
 
             stage('Setup Python Environment') {
                 steps {
-                    echo "Setting up Python environment"
+                    echo "Setting up Python environment..."
                 }
             }
 
             stage('Install Google Chrome') {
                 steps {
-                    echo "Installing Google Chrome"
+                    echo "Installing Google Chrome..."
                 }
             }
 
             stage('Install Dependencies') {
                 steps {
-                    echo "Installing dependencies"
+                    echo "Installing required dependencies..."
                 }
             }
 
-            stage('Fetch secrets and processing') {
+            stage('Fetch Secrets and Processing') {
                 steps {
-                    echo "Fetching secrets and processing"
+                    echo "Fetching secrets and performing processing..."
                 }
             }
         }
     }
 }
+
 
 
 
@@ -151,27 +152,27 @@ def call() {
 
 
 
-vars/reusableFunctions.groovy
+// vars/reusableFunctions.groovy
 
-def reusableSetupPythonEnv(String pythonVersion) {
+// def reusableSetupPythonEnv(String pythonVersion) {
     
-    echo "Python ${pythonVersion} environment set up successfully!"
-}
+//     echo "Python ${pythonVersion} environment set up successfully!"
+// }
 
-def reusableInstallGoogleChrome() {
+// def reusableInstallGoogleChrome() {
     
-    echo "Google Chrome installed successfully!"
-}
+//     echo "Google Chrome installed successfully!"
+// }
 
-def reusableInstallDependencies(String requirementsFile) {
+// def reusableInstallDependencies(String requirementsFile) {
     
-    echo "Dependencies from ${requirementsFile} installed successfully!"
-}
+//     echo "Dependencies from ${requirementsFile} installed successfully!"
+// }
 
-def reusableSendNotification(String status) {
+// def reusableSendNotification(String status) {
     
-   echo "Notification sent for ${status}."
-}
+//    echo "Notification sent for ${status}."
+// }
 
 
 
