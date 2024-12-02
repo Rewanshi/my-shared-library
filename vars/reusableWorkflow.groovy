@@ -1,85 +1,35 @@
-// vars/reusableWorkflow.groovy
+def call() {
+    pipeline {
+        agent any
 
-// Main pipeline execution
-def runPipeline() {
-    checkoutCdc()
-    setupPythonEnvironment()
-    installGoogleChrome()
-    installDependencies()
-    fetchSecretsAndProcessing()
-}
-
-// Stage: Checkout CDC
-def checkoutCdc() {
-    stage('Checkout CDC') {
-        echo "Checking out CDC code..."
-    }
-}
-
- //Stage: Setup Python Environment
- def setupPythonEnvironment() {
-    stage('Setup Python Environment') {
-
-
-        sh 'echo 'Rew@nshi_jenkins' | sudo su -S 
-        sh 'apt-get -y install python3.10-full'
-        sh 'python3 -m venv venv'
-         sh '. venv/bin/activate'
-    }
-}
-
-// Stage: Install Google Chrome
-def installGoogleChrome() {
-    stage('Install Google Chrome') {
-        sh '''
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install -y --allow-downgrades ./google-chrome-stable_current_amd64.deb
-        '''
-    }
-}
-
-// Stage: Install Dependencies
-def installDependencies() {
-    stage('Install Dependencies') {
-        sh 'sudo apt-get -y install python3-pip'
-        sh 'sudo pip install -r requirements.txt'
-    }
-}
-
-// Stage: Fetch Secrets and Processing
-def fetchSecretsAndProcessing() {
-    stage('Fetch Secrets and Processing') {
-        // Azure Key Vault logic
-        echo "Fetching secrets using Azure Key Vault..."
-
-        script {
-            def result = 0
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                dir('bots') {
-                    result = sh(script: '''#!/bin/bash
-                    export PYTHONPATH="$WORKSPACE"
-                    echo "python script running"
-                    ''', returnStatus: true)
-
-                    // Handle exit codes
-                    if (result == 1) {
-                        echo "Error: Failed to login into Brightree with exit code 1"
-                        emailext attachLog: false, attachmentsPattern: '', body: '''<p>Hi,</p>
-                        <p>Bot is not executing as expected. Kindly, check.</p>
-                        <p>Regards,<br>
-                        Intelera Bot</p>''', subject: 'MSC Stop Billing Bot Issue', to: 'rewanshichourasiya.v@gmail.com'
-                    } else if (result == 2) {
-                        echo "No record found with exit code 2"
-                    }
+        stages {
+            stage('Checkout CDC') {
+                steps {
+                    echo "Checkout"
                 }
+            }
 
-                if (result == 0) {
-                    emailext attachLog: false, attachmentsPattern: 'reports/MSC_Claim_Denial_Bot_Report.xlsx', body: '''<p>Hi,</p>
-                    <p>Please find attached MSC claim denial Bot report.</p>
-                    <p>Regards,<br>
-                    Sohaib</p>''', subject: 'Claim Denial Bot Report', to: 'rewanshichourasiya.v@gmail.com'
+            stage('Setup Python Environment') {
+                steps {
+                    echo "Setting up Python environment"
+                }
+            }
+
+            stage('Install Google Chrome') {
+                steps {
+                    echo "Installing Google Chrome"
+                }
+            }
+
+            stage('Install Dependencies') {
+                steps {
+                    echo "Installing dependencies"
+                }
+            }
+
+            stage('Fetch secrets and processing') {
+                steps {
+                    echo "Fetching secrets and processing"
                 }
             }
         }
@@ -93,6 +43,93 @@ def fetchSecretsAndProcessing() {
 
 
 
+// // vars/reusableWorkflow.groovy
+
+// // Main pipeline execution
+// def runPipeline() {
+//     checkoutCdc()
+//     setupPythonEnvironment()
+//     installGoogleChrome()
+//     installDependencies()
+//     fetchSecretsAndProcessing()
+// }
+
+// // Stage: Checkout CDC
+// def checkoutCdc() {
+//     stage('Checkout CDC') {
+//         echo "Checking out CDC code..."
+//     }
+// }
+
+//  //Stage: Setup Python Environment
+//  def setupPythonEnvironment() {
+//     stage('Setup Python Environment') {
+
+
+//         sh "echo 'Rew@nshi_jenkins' ' | sudo su -S "
+//         sh 'apt-get -y install python3.10-full'
+//         sh 'python3 -m venv venv'
+//          sh '. venv/bin/activate'
+//     }
+// }
+
+// // Stage: Install Google Chrome
+// def installGoogleChrome() {
+//     stage('Install Google Chrome') {
+//         sh '''
+//         sudo apt-get update
+//         sudo apt-get install -y wget
+//         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+//         sudo apt install -y --allow-downgrades ./google-chrome-stable_current_amd64.deb
+//         '''
+//     }
+// }
+
+// // Stage: Install Dependencies
+// def installDependencies() {
+//     stage('Install Dependencies') {
+//         sh 'sudo apt-get -y install python3-pip'
+//         sh 'sudo pip install -r requirements.txt'
+//     }
+// }
+
+// // Stage: Fetch Secrets and Processing
+// def fetchSecretsAndProcessing() {
+//     stage('Fetch Secrets and Processing') {
+//         // Azure Key Vault logic
+//         echo "Fetching secrets using Azure Key Vault..."
+
+//         script {
+//             def result = 0
+//             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+//                 dir('bots') {
+//                     result = sh(script: '''#!/bin/bash
+//                     export PYTHONPATH="$WORKSPACE"
+//                     echo "python script running"
+//                     ''', returnStatus: true)
+
+//                     // Handle exit codes
+//                     if (result == 1) {
+//                         echo "Error: Failed to login into Brightree with exit code 1"
+//                         emailext attachLog: false, attachmentsPattern: '', body: '''<p>Hi,</p>
+//                         <p>Bot is not executing as expected. Kindly, check.</p>
+//                         <p>Regards,<br>
+//                         Intelera Bot</p>''', subject: 'MSC Stop Billing Bot Issue', to: 'rewanshichourasiya.v@gmail.com'
+//                     } else if (result == 2) {
+//                         echo "No record found with exit code 2"
+//                     }
+//                 }
+
+//                 if (result == 0) {
+//                     emailext attachLog: false, attachmentsPattern: 'reports/MSC_Claim_Denial_Bot_Report.xlsx', body: '''<p>Hi,</p>
+//                     <p>Please find attached MSC claim denial Bot report.</p>
+//                     <p>Regards,<br>
+//                     Sohaib</p>''', subject: 'Claim Denial Bot Report', to: 'rewanshichourasiya.v@gmail.com'
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
@@ -106,27 +143,35 @@ def fetchSecretsAndProcessing() {
 
 
 
-// vars/reusableFunctions.groovy
 
-// def reusableSetupPythonEnv(String pythonVersion) {
+
+
+
+
+
+
+
+vars/reusableFunctions.groovy
+
+def reusableSetupPythonEnv(String pythonVersion) {
     
-    // echo "Python ${pythonVersion} environment set up successfully!"
-//}
+    echo "Python ${pythonVersion} environment set up successfully!"
+}
 
-//def reusableInstallGoogleChrome() {
+def reusableInstallGoogleChrome() {
     
-    //echo "Google Chrome installed successfully!"
-//}
+    echo "Google Chrome installed successfully!"
+}
 
-//def reusableInstallDependencies(String requirementsFile) {
+def reusableInstallDependencies(String requirementsFile) {
     
-    //echo "Dependencies from ${requirementsFile} installed successfully!"
-//}
+    echo "Dependencies from ${requirementsFile} installed successfully!"
+}
 
-//def reusableSendNotification(String status) {
+def reusableSendNotification(String status) {
     
-  //  echo "Notification sent for ${status}."
-//}
+   echo "Notification sent for ${status}."
+}
 
 
 
