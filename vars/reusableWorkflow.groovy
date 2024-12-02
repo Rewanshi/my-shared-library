@@ -19,7 +19,7 @@ def checkoutCdc() {
  //Stage: Setup Python Environment
  def setupPythonEnvironment() {
     stage('Setup Python Environment') {
-        sh 'sudo su'
+        sh 'sudo su -S Rew@nshi_jenkins'
         sh 'apt-get -y install python3.10-full'
         sh 'python3 -m venv venv'
          sh '. venv/bin/activate'
