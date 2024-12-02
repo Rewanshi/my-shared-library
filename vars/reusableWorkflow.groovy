@@ -1,40 +1,86 @@
-def call() {
+def call(String message) {
     pipeline {
         agent any
 
         stages {
             stage('Checkout Code') {
                 steps {
-                    echo "Checking out the repository..."
+                    echo "Checking out the repository... Message: ${message}"
                 }
             }
 
             stage('Setup Python Environment') {
                 steps {
-                    echo "Setting up Python environment..."
+                    echo "Setting up Python environment... Message: ${message}"
                 }
             }
 
             stage('Install Google Chrome') {
                 steps {
-                    echo "Installing Google Chrome..."
+                    echo "Installing Google Chrome... Message: ${message}"
                 }
             }
 
             stage('Install Dependencies') {
                 steps {
-                    echo "Installing required dependencies..."
+                    echo "Installing required dependencies... Message: ${message}"
                 }
             }
 
             stage('Fetch Secrets and Processing') {
                 steps {
-                    echo "Fetching secrets and performing processing..."
+                    echo "Fetching secrets and performing processing... Message: ${message}"
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+// def call() {
+//     pipeline {
+//         agent any
+
+//         stages {
+//             stage('Checkout Code') {
+//                 steps {
+//                     echo "Checking out the repository..."
+//                 }
+//             }
+
+//             stage('Setup Python Environment') {
+//                 steps {
+//                     echo "Setting up Python environment..."
+//                 }
+//             }
+
+//             stage('Install Google Chrome') {
+//                 steps {
+//                     echo "Installing Google Chrome..."
+//                 }
+//             }
+
+//             stage('Install Dependencies') {
+//                 steps {
+//                     echo "Installing required dependencies..."
+//                 }
+//             }
+
+//             stage('Fetch Secrets and Processing') {
+//                 steps {
+//                     echo "Fetching secrets and performing processing..."
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
