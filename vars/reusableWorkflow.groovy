@@ -36,13 +36,35 @@ def installGoogleChrome() {
 
 // Reusable function for installing dependencies
 def installDependencies() {
-    sh '''
-        sudo apt-get update
-        sudo apt-get -y install python3-pip
-        sudo pip install -r requirements.txt
-    '''
-    echo "Dependencies have been successfully installed."
+    try {
+        // Ensure the package list is up to date
+        sh '''#!/bin/bash
+        sudo apt-get update -y
+        sudo apt-get install -y python3-pip
+        '''
+        
+        // Install dependencies from requirements.txt using pip3
+        sh '''#!/bin/bash
+        sudo pip3 install --upgrade -r requirements.txt
+        '''
+
+        echo "Dependencies have been successfully installed."
+    } catch (Exception e) {
+        echo "Error while installing dependencies: ${e.message}"
+        currentBuild.result = 'FAILURE'
+    }
 }
+
+
+// // Reusable function for installing dependencies
+// def installDependencies() {
+//     sh '''
+//         sudo apt-get update
+//         sudo apt-get -y install python3-pip
+//         sudo pip install -r requirements.txt
+//     '''
+//     echo "Dependencies have been successfully installed."
+// }
 
 
 // main pipeline script
