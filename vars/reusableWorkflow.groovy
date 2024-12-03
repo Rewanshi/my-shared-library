@@ -37,12 +37,16 @@ def installGoogleChrome() {
 // Reusable function for installing dependencies in a virtual environment
 def installDependencies() {
     try {
-        // Debugging: List files recursively to check where requirements.txt is located
+        // Debugging: Print the current working directory
         sh '''#!/bin/bash
-        echo "Listing all files recursively to check for requirements.txt:"
-        find . -name "requirements.txt"  # Look for requirements.txt in the current directory and subdirectories
+        echo "Current directory:"
+        pwd  # Print the current working directory
+        echo "Listing all files:"
+        ls -al  # List all files in the current directory
+        echo "Searching for requirements.txt in the current directory and subdirectories:"
+        find . -name "requirements.txt"  # Search for requirements.txt
         '''
-
+        
         // Check if requirements.txt exists before installing
         sh '''#!/bin/bash
         if [ -f "requirements.txt" ]; then
@@ -63,6 +67,37 @@ def installDependencies() {
         currentBuild.result = 'FAILURE'
     }
 }
+
+
+// // Reusable function for installing dependencies in a virtual environment
+// def installDependencies() {
+//     try {
+//         // Debugging: List files recursively to check where requirements.txt is located
+//         sh '''#!/bin/bash
+//         echo "Listing all files recursively to check for requirements.txt:"
+//         find . -name "requirements.txt"  # Look for requirements.txt in the current directory and subdirectories
+//         '''
+
+//         // Check if requirements.txt exists before installing
+//         sh '''#!/bin/bash
+//         if [ -f "requirements.txt" ]; then
+//             echo "Found requirements.txt, proceeding with installation."
+//             python3 -m venv venv  # Create a virtual environment named 'venv'
+//             source venv/bin/activate  # Activate the virtual environment
+//             pip install --upgrade pip  # Upgrade pip inside the virtual environment
+//             pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
+//         else
+//             echo "ERROR: requirements.txt not found in the current directory."
+//             exit 1  # Exit if requirements.txt is not found
+//         fi
+//         '''
+        
+//         echo "Dependencies have been successfully installed in the virtual environment."
+//     } catch (Exception e) {
+//         echo "Error while installing dependencies: ${e.message}"
+//         currentBuild.result = 'FAILURE'
+//     }
+// }
 
 
 // // Reusable function for installing dependencies in a virtual environment
