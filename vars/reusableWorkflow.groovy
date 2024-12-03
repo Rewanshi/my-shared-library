@@ -34,35 +34,35 @@ def installGoogleChrome() {
     echo "Google Chrome has been successfully installed."
 }
 
-node {
-    stage('Checkout') {
-        checkout scm  // Ensure the repo is checked out correctly
-        sh 'echo "List of files in the current directory:"'
-        sh 'ls -al'    // List the files after checkout to verify requirements.txt is present
-    }
+// node {
+//     stage('Checkout') {
+//         checkout scm  // Ensure the repo is checked out correctly
+//         sh 'echo "List of files in the current directory:"'
+//         sh 'ls -al'    // List the files after checkout to verify requirements.txt is present
+//     }
 
-    stage('Install Dependencies') {
-        echo 'Installing required dependencies...'
+//     stage('Install Dependencies') {
+//         echo 'Installing required dependencies...'
         
-        // Check if requirements.txt exists before proceeding
-        sh '''#!/bin/bash
-        if [ -f "requirements.txt" ]; then
-            echo "Found requirements.txt, proceeding with installation."
-            python3 -m venv venv  # Create a virtual environment named 'venv'
-            source venv/bin/activate  # Activate the virtual environment
-            pip install --upgrade pip  # Upgrade pip inside the virtual environment
-            pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
-        else
-            echo "ERROR: requirements.txt not found in the current directory."
-            exit 1  # Exit if requirements.txt is not found
-        fi
-        '''
-    }
+//         // Check if requirements.txt exists before proceeding
+//         sh '''#!/bin/bash
+//         if [ -f "requirements.txt" ]; then
+//             echo "Found requirements.txt, proceeding with installation."
+//             python3 -m venv venv  # Create a virtual environment named 'venv'
+//             source venv/bin/activate  # Activate the virtual environment
+//             pip install --upgrade pip  # Upgrade pip inside the virtual environment
+//             pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
+//         else
+//             echo "ERROR: requirements.txt not found in the current directory."
+//             exit 1  # Exit if requirements.txt is not found
+//         fi
+//         '''
+//     }
 
-    stage('Fetch Secrets and Processing') {
-        echo "Fetching secrets and performing processing... Message: Hello from Jenkins Pipeline!"
-    }
-}
+//     stage('Fetch Secrets and Processing') {
+//         echo "Fetching secrets and performing processing... Message: Hello from Jenkins Pipeline!"
+//     }
+// }
 
 
 // // Reusable function for installing dependencies in a virtual environment
@@ -274,7 +274,7 @@ def call(String message) {
 
             stage('Install Dependencies') {
                 steps {
-                    installDependencies()       // Call the reusable dependency installation function
+    
                     echo "Installing required dependencies... Message: ${message}"
                 }
             }
