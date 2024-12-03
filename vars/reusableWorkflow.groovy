@@ -37,14 +37,16 @@ def installGoogleChrome() {
 // Reusable function for installing dependencies in a virtual environment
 def installDependencies() {
     try {
-        // Create a Python virtual environment (if it doesn't already exist)
+        // Create a virtual environment (if it doesn't already exist)
         sh '''#!/bin/bash
         python3 -m venv venv  # Creates a virtual environment named 'venv'
         '''
 
-        // Activate the virtual environment and install dependencies
+        // Install dependencies into the virtual environment
         sh '''#!/bin/bash
-        source venv/bin/activate  # Activates the virtual environment
+        # Activate the virtual environment and install dependencies
+        source venv/bin/activate
+        pip install --upgrade pip  # Upgrade pip inside the virtual environment
         pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
         '''
 
@@ -54,6 +56,28 @@ def installDependencies() {
         currentBuild.result = 'FAILURE'
     }
 }
+
+
+// // Reusable function for installing dependencies in a virtual environment
+// def installDependencies() {
+//     try {
+//         // Create a Python virtual environment (if it doesn't already exist)
+//         sh '''#!/bin/bash
+//         python3 -m venv venv  # Creates a virtual environment named 'venv'
+//         '''
+
+//         // Activate the virtual environment and install dependencies
+//         sh '''#!/bin/bash
+//         source venv/bin/activate  # Activates the virtual environment
+//         pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
+//         '''
+
+//         echo "Dependencies have been successfully installed in the virtual environment."
+//     } catch (Exception e) {
+//         echo "Error while installing dependencies: ${e.message}"
+//         currentBuild.result = 'FAILURE'
+//     }
+// }
 
 
 // // Reusable function for installing dependencies
