@@ -1,3 +1,13 @@
+// Reusable function for setting up Python environment
+def setupPythonEnvironment() {
+    sh '''
+        sudo apt-get -y install python3.10-full
+        sudo python3 -m venv venv
+        . venv/bin/activate
+    '''
+    echo "Python environment has been successfully set up."
+}
+
 // Reusable function for installing Google Chrome
 def installGoogleChrome() {
     sh '''
@@ -8,6 +18,7 @@ def installGoogleChrome() {
     '''
     echo "Google Chrome has been successfully installed."
 }
+
 
 // main pipeline script
 
@@ -24,6 +35,7 @@ def call(String message) {
 
             stage('Setup Python Environment') {
                 steps {
+                    setupPythonEnvironment()     // Call the reusable Python setup function
                     echo "Setting up Python environment... Message: ${message}"
                 }
             }            
