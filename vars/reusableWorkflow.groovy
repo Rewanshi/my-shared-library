@@ -1,12 +1,27 @@
+// // Reusable function for setting up Python environment
+// def setupPythonEnvironment() {
+//     sh '''
+//         sudo apt-get -y install python3.10-full
+//         sudo python3 -m venv venv
+//         . venv/bin/activate
+//     '''
+//     echo "Python environment has been successfully set up."
+// }
+
 // Reusable function for setting up Python environment
 def setupPythonEnvironment() {
     sh '''
-        sudo apt-get -y install python3.10-full
-        sudo python3 -m venv venv
+        sudo apt-get update
+        sudo apt-get -y install software-properties-common
+        sudo add-apt-repository -y ppa:deadsnakes/ppa
+        sudo apt-get update
+        sudo apt-get -y install python3.10 python3.10-venv python3.10-distutils
+        python3.10 -m venv venv
         . venv/bin/activate
     '''
-    echo "Python environment has been successfully set up."
+    echo "Python environment with Python 3.10 has been successfully set up."
 }
+
 
 // Reusable function for installing Google Chrome
 def installGoogleChrome() {
