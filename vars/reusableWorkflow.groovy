@@ -34,26 +34,48 @@ def installGoogleChrome() {
     echo "Google Chrome has been successfully installed."
 }
 
-// Reusable function for installing dependencies
+// Reusable function for installing dependencies in a virtual environment
 def installDependencies() {
     try {
-        // Ensure the package list is up to date
+        // Create a Python virtual environment (if it doesn't already exist)
         sh '''#!/bin/bash
-        sudo apt-get update -y
-        sudo apt-get install -y python3-pip
-        '''
-        
-        // Install dependencies from requirements.txt using pip3
-        sh '''#!/bin/bash
-        sudo pip3 install --upgrade -r requirements.txt
+        python3 -m venv venv  # Creates a virtual environment named 'venv'
         '''
 
-        echo "Dependencies have been successfully installed."
+        // Activate the virtual environment and install dependencies
+        sh '''#!/bin/bash
+        source venv/bin/activate  # Activates the virtual environment
+        pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
+        '''
+
+        echo "Dependencies have been successfully installed in the virtual environment."
     } catch (Exception e) {
         echo "Error while installing dependencies: ${e.message}"
         currentBuild.result = 'FAILURE'
     }
 }
+
+
+// // Reusable function for installing dependencies
+// def installDependencies() {
+//     try {
+//         // Ensure the package list is up to date
+//         sh '''#!/bin/bash
+//         sudo apt-get update -y
+//         sudo apt-get install -y python3-pip
+//         '''
+        
+//         // Install dependencies from requirements.txt using pip3
+//         sh '''#!/bin/bash
+//         sudo pip3 install --upgrade -r requirements.txt
+//         '''
+
+//         echo "Dependencies have been successfully installed."
+//     } catch (Exception e) {
+//         echo "Error while installing dependencies: ${e.message}"
+//         currentBuild.result = 'FAILURE'
+//     }
+// }
 
 
 // // Reusable function for installing dependencies
