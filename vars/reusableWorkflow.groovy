@@ -37,25 +37,60 @@ def installGoogleChrome() {
 // Reusable function for installing dependencies in a virtual environment
 def installDependencies() {
     try {
+        // Debugging: Check current directory and list files
+        sh '''#!/bin/bash
+        echo "Listing files in the current directory:"
+        ls -l
+        '''
+        
         // Create a virtual environment (if it doesn't already exist)
         sh '''#!/bin/bash
         python3 -m venv venv  # Creates a virtual environment named 'venv'
         '''
-
-        // Install dependencies into the virtual environment
+        
+        // Check if requirements.txt exists before installing
         sh '''#!/bin/bash
-        # Activate the virtual environment and install dependencies
-        source venv/bin/activate
-        pip install --upgrade pip  # Upgrade pip inside the virtual environment
-        pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
+        if [ -f "requirements.txt" ]; then
+            echo "Found requirements.txt, proceeding with installation."
+            source venv/bin/activate
+            pip install --upgrade pip  # Upgrade pip inside the virtual environment
+            pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
+        else
+            echo "ERROR: requirements.txt not found in the current directory."
+            exit 1  # Exit if requirements.txt is not found
+        fi
         '''
-
+        
         echo "Dependencies have been successfully installed in the virtual environment."
     } catch (Exception e) {
         echo "Error while installing dependencies: ${e.message}"
         currentBuild.result = 'FAILURE'
     }
 }
+
+
+// // Reusable function for installing dependencies in a virtual environment
+// def installDependencies() {
+//     try {
+//         // Create a virtual environment (if it doesn't already exist)
+//         sh '''#!/bin/bash
+//         python3 -m venv venv  # Creates a virtual environment named 'venv'
+//         '''
+
+//         // Install dependencies into the virtual environment
+//         sh '''#!/bin/bash
+//         # Activate the virtual environment and install dependencies
+//         source venv/bin/activate
+//         pip install --upgrade pip  # Upgrade pip inside the virtual environment
+//         pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
+//         '''
+
+//         echo "Dependencies have been successfully installed in the virtual environment."
+//     } catch (Exception e) {
+//         echo "Error while installing dependencies: ${e.message}"
+//         currentBuild.result = 'FAILURE'
+//     }
+// }
 
 
 // // Reusable function for installing dependencies in a virtual environment
