@@ -1,3 +1,16 @@
+// Reusable function for installing Google Chrome
+def installGoogleChrome() {
+    sh '''
+        sudo apt-get update
+        sudo apt-get install -y wget
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y --allow-downgrades ./google-chrome-stable_current_amd64.deb
+    '''
+    echo "Google Chrome has been successfully installed."
+}
+
+// main pipeline script
+
 def call(String message) {
     pipeline {
         agent any
@@ -13,10 +26,11 @@ def call(String message) {
                 steps {
                     echo "Setting up Python environment... Message: ${message}"
                 }
-            }
+            }            
 
             stage('Install Google Chrome') {
                 steps {
+                    installGoogleChrome()        // Call the reusable function
                     echo "Installing Google Chrome... Message: ${message}"
                 }
             }
