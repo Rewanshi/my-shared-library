@@ -34,6 +34,16 @@ def installGoogleChrome() {
     echo "Google Chrome has been successfully installed."
 }
 
+// Reusable function for installing dependencies
+def installDependencies() {
+    sh '''
+        sudo apt-get update
+        sudo apt-get -y install python3-pip
+        sudo pip install -r requirements.txt
+    '''
+    echo "Dependencies have been successfully installed."
+}
+
 
 // main pipeline script
 
@@ -64,6 +74,7 @@ def call(String message) {
 
             stage('Install Dependencies') {
                 steps {
+                    installDependencies()       // Call the reusable dependency installation function
                     echo "Installing required dependencies... Message: ${message}"
                 }
             }
