@@ -70,7 +70,7 @@ def call(String message) {
                 }
             }
 
-            stage('Upload Logs to Azure Blob Storage') {
+            stage('Upload Logs to Azure Blog Storage') {
                 steps {
                     echo "uploading logs to Azure blog storage... Message: ${message}"
                 }
