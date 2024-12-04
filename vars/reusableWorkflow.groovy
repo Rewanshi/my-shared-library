@@ -22,6 +22,13 @@ def installGoogleChrome() {
     '''
     echo "Google Chrome installed."
 }
+ // reusable function for installing dependencies 
+  def installDependencies() {
+     sh 'sudo apt-get -y install python3-pip'
+     sh 'sudo pip install -r requirements.txt'
+
+     echo "install dependencies has been done successfully."
+}
 
 def call(String message) {
     pipeline {
