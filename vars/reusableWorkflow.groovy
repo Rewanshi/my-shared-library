@@ -37,7 +37,7 @@ def checkoutCode(String branch, String credentialsId, String repositoryUrl) {
     echo "Checked out the repository '${repositoryUrl}' on branch '${branch}'."
 }
 
-def call(String message) {
+def call(String message, Map config = [:]) {
     pipeline {
         agent any
         stages {
