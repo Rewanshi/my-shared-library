@@ -274,7 +274,8 @@ def call(String message) {
 
             stage('Install Dependencies') {
                 steps {
-    
+                sh 'sudo apt-get -y install python3-pip'
+                sh 'sudo pip install -r requirements.txt'
                     echo "Installing required dependencies... Message: ${message}"
                 }
             }
