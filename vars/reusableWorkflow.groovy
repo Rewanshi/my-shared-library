@@ -34,6 +34,13 @@ def installGoogleChrome() {
     echo "Google Chrome has been successfully installed."
 }
 
+def installDependencies() {
+     sh 'sudo apt-get -y install python3-pip'
+     sh 'sudo pip install -r requirements.txt'
+
+     echo "install dependencies has been done successfully"
+}
+
 // node {
 //     stage('Checkout') {
 //         checkout scm  // Ensure the repo is checked out correctly
