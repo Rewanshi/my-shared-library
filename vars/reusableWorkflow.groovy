@@ -31,17 +31,17 @@ def installDependencies() {
      echo "install dependencies has been done successfully"
 }
 
-// Reusable function for Git Checkout
-def checkoutRepository(Map params) {
-    echo "Checking out repository: ${params.repoUrl} with branch: ${params.branch} and credentials: ${params.credentialsId}"
-    checkout([$class: 'GitSCM',
-        branches: [[name: "refs/heads/${params.branch}"]],
-        doGenerateSubmoduleConfigurations: false,
-        extensions: [],
-        userRemoteConfigs: [[url: params.repoUrl, credentialsId: params.credentialsId]]
-    ])
-    echo "Successfully checked out repository: ${params.repoUrl}"
-}
+// // Reusable function for Git Checkout
+// def checkoutRepository(Map params) {
+//     echo "Checking out repository: ${params.repoUrl} with branch: ${params.branch} and credentials: ${params.credentialsId}"
+//     checkout([$class: 'GitSCM',
+//         branches: [[name: "refs/heads/${params.branch}"]],
+//         doGenerateSubmoduleConfigurations: false,
+//         extensions: [],
+//         userRemoteConfigs: [[url: params.repoUrl, credentialsId: params.credentialsId]]
+//     ])
+//     echo "Successfully checked out repository: ${params.repoUrl}"
+// }
 
 
 // main pipeline script
@@ -49,28 +49,28 @@ def checkoutRepository(Map params) {
 def call(String message) {
     pipeline {
         agent any
-        stages {
-            stage('Checkout Code') {
-                steps {
-                    script {
-                        // Pass the uncommon parameters for the Git checkout
-                        checkoutRepository(
-                            repoUrl: 'https://github.com/intelera-tech/brightree-bots.git',
-                            branch: 'main',
-                            credentialsId: 'master-jenkins'
-                        )
-                    }
-                    echo "Checking out the repository... Message: ${message}"
-                }
-            }
-
         // stages {
         //     stage('Checkout Code') {
         //         steps {
-        //             git branch: 'main', credentialsId: 'master-jenkins', url: 'https://github.com/intelera-tech/brightree-bots.git'
+        //             script {
+        //                 // Pass the uncommon parameters for the Git checkout
+        //                 checkoutRepository(
+        //                     repoUrl: 'https://github.com/intelera-tech/brightree-bots.git',
+        //                     branch: 'main',
+        //                     credentialsId: 'master-jenkins'
+        //                 )
+        //             }
         //             echo "Checking out the repository... Message: ${message}"
         //         }
         //     }
+
+        stages {
+            stage('Checkout Code') {
+                steps {
+                    git branch: 'main', credentialsId: 'master-jenkins', url: 'https://github.com/intelera-tech/brightree-bots.git'
+                    echo "Checking out the repository... Message: ${message}"
+                }
+            }
 
             stage('Setup Python Environment') {
                 steps {
@@ -105,10 +105,10 @@ def call(String message) {
                 }
             }
             
-             post {
-             always {
-                echo 'Reusable Workflow Completed Successfully.'
-        }
+        //      post {
+        //      always {
+        //         echo 'Reusable Workflow Completed Successfully.'
+        // }
     }
 }
 
