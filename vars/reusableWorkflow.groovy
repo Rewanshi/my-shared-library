@@ -1,13 +1,3 @@
-// // Reusable function for setting up Python environment
-// def setupPythonEnvironment() {
-//     sh '''
-//         sudo apt-get -y install python3.10-full
-//         sudo python3 -m venv venv
-//         . venv/bin/activate
-//     '''
-//     echo "Python environment has been successfully set up."
-// }
-
 // Reusable function for setting up Python environment
 def setupPythonEnvironment() {
     sh '''
@@ -22,7 +12,6 @@ def setupPythonEnvironment() {
     echo "Python environment with Python 3.10 has been successfully set up."
 }
 
-
 // Reusable function for installing Google Chrome
 def installGoogleChrome() {
     sh '''
@@ -34,223 +23,13 @@ def installGoogleChrome() {
     echo "Google Chrome has been successfully installed."
 }
 
+// reusable function to install dependencies 
 def installDependencies() {
      sh 'sudo apt-get -y install python3-pip'
      sh 'sudo pip install -r requirements.txt'
 
      echo "install dependencies has been done successfully"
 }
-
-// node {
-//     stage('Checkout') {
-//         checkout scm  // Ensure the repo is checked out correctly
-//         sh 'echo "List of files in the current directory:"'
-//         sh 'ls -al'    // List the files after checkout to verify requirements.txt is present
-//     }
-
-//     stage('Install Dependencies') {
-//         echo 'Installing required dependencies...'
-        
-//         // Check if requirements.txt exists before proceeding
-//         sh '''#!/bin/bash
-//         if [ -f "requirements.txt" ]; then
-//             echo "Found requirements.txt, proceeding with installation."
-//             python3 -m venv venv  # Create a virtual environment named 'venv'
-//             source venv/bin/activate  # Activate the virtual environment
-//             pip install --upgrade pip  # Upgrade pip inside the virtual environment
-//             pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
-//         else
-//             echo "ERROR: requirements.txt not found in the current directory."
-//             exit 1  # Exit if requirements.txt is not found
-//         fi
-//         '''
-//     }
-
-//     stage('Fetch Secrets and Processing') {
-//         echo "Fetching secrets and performing processing... Message: Hello from Jenkins Pipeline!"
-//     }
-// }
-
-
-// // Reusable function for installing dependencies in a virtual environment
-// def installDependencies() {
-//     try {
-//         // Debugging: Print the current working directory
-//         sh '''#!/bin/bash
-//         echo "Current directory:"
-//         pwd  # Print the current working directory
-//         echo "Listing all files:"
-//         ls -al  # List all files in the current directory
-//         echo "Searching for requirements.txt in the current directory and subdirectories:"
-//         find . -name "requirements.txt"  # Search for requirements.txt
-//         '''
-        
-//         // Check if requirements.txt exists before installing
-//         sh '''#!/bin/bash
-//         if [ -f "requirements.txt" ]; then
-//             echo "Found requirements.txt, proceeding with installation."
-//             python3 -m venv venv  # Create a virtual environment named 'venv'
-//             source venv/bin/activate  # Activate the virtual environment
-//             pip install --upgrade pip  # Upgrade pip inside the virtual environment
-//             pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
-//         else
-//             echo "ERROR: requirements.txt not found in the current directory."
-//             exit 1  # Exit if requirements.txt is not found
-//         fi
-//         '''
-        
-//         echo "Dependencies have been successfully installed in the virtual environment."
-//     } catch (Exception e) {
-//         echo "Error while installing dependencies: ${e.message}"
-//         currentBuild.result = 'FAILURE'
-//     }
-// }
-
-
-// // Reusable function for installing dependencies in a virtual environment
-// def installDependencies() {
-//     try {
-//         // Debugging: List files recursively to check where requirements.txt is located
-//         sh '''#!/bin/bash
-//         echo "Listing all files recursively to check for requirements.txt:"
-//         find . -name "requirements.txt"  # Look for requirements.txt in the current directory and subdirectories
-//         '''
-
-//         // Check if requirements.txt exists before installing
-//         sh '''#!/bin/bash
-//         if [ -f "requirements.txt" ]; then
-//             echo "Found requirements.txt, proceeding with installation."
-//             python3 -m venv venv  # Create a virtual environment named 'venv'
-//             source venv/bin/activate  # Activate the virtual environment
-//             pip install --upgrade pip  # Upgrade pip inside the virtual environment
-//             pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
-//         else
-//             echo "ERROR: requirements.txt not found in the current directory."
-//             exit 1  # Exit if requirements.txt is not found
-//         fi
-//         '''
-        
-//         echo "Dependencies have been successfully installed in the virtual environment."
-//     } catch (Exception e) {
-//         echo "Error while installing dependencies: ${e.message}"
-//         currentBuild.result = 'FAILURE'
-//     }
-// }
-
-
-// // Reusable function for installing dependencies in a virtual environment
-// def installDependencies() {
-//     try {
-//         // Debugging: Check current directory and list files
-//         sh '''#!/bin/bash
-//         echo "Listing files in the current directory:"
-//         ls -l
-//         '''
-        
-//         // Create a virtual environment (if it doesn't already exist)
-//         sh '''#!/bin/bash
-//         python3 -m venv venv  # Creates a virtual environment named 'venv'
-//         '''
-        
-//         // Check if requirements.txt exists before installing
-//         sh '''#!/bin/bash
-//         if [ -f "requirements.txt" ]; then
-//             echo "Found requirements.txt, proceeding with installation."
-//             source venv/bin/activate
-//             pip install --upgrade pip  # Upgrade pip inside the virtual environment
-//             pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
-//         else
-//             echo "ERROR: requirements.txt not found in the current directory."
-//             exit 1  # Exit if requirements.txt is not found
-//         fi
-//         '''
-        
-//         echo "Dependencies have been successfully installed in the virtual environment."
-//     } catch (Exception e) {
-//         echo "Error while installing dependencies: ${e.message}"
-//         currentBuild.result = 'FAILURE'
-//     }
-// }
-
-
-// // Reusable function for installing dependencies in a virtual environment
-// def installDependencies() {
-//     try {
-//         // Create a virtual environment (if it doesn't already exist)
-//         sh '''#!/bin/bash
-//         python3 -m venv venv  # Creates a virtual environment named 'venv'
-//         '''
-
-//         // Install dependencies into the virtual environment
-//         sh '''#!/bin/bash
-//         # Activate the virtual environment and install dependencies
-//         source venv/bin/activate
-//         pip install --upgrade pip  # Upgrade pip inside the virtual environment
-//         pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
-//         '''
-
-//         echo "Dependencies have been successfully installed in the virtual environment."
-//     } catch (Exception e) {
-//         echo "Error while installing dependencies: ${e.message}"
-//         currentBuild.result = 'FAILURE'
-//     }
-// }
-
-
-// // Reusable function for installing dependencies in a virtual environment
-// def installDependencies() {
-//     try {
-//         // Create a Python virtual environment (if it doesn't already exist)
-//         sh '''#!/bin/bash
-//         python3 -m venv venv  # Creates a virtual environment named 'venv'
-//         '''
-
-//         // Activate the virtual environment and install dependencies
-//         sh '''#!/bin/bash
-//         source venv/bin/activate  # Activates the virtual environment
-//         pip install --upgrade -r requirements.txt  # Install dependencies from requirements.txt
-//         '''
-
-//         echo "Dependencies have been successfully installed in the virtual environment."
-//     } catch (Exception e) {
-//         echo "Error while installing dependencies: ${e.message}"
-//         currentBuild.result = 'FAILURE'
-//     }
-// }
-
-
-// // Reusable function for installing dependencies
-// def installDependencies() {
-//     try {
-//         // Ensure the package list is up to date
-//         sh '''#!/bin/bash
-//         sudo apt-get update -y
-//         sudo apt-get install -y python3-pip
-//         '''
-        
-//         // Install dependencies from requirements.txt using pip3
-//         sh '''#!/bin/bash
-//         sudo pip3 install --upgrade -r requirements.txt
-//         '''
-
-//         echo "Dependencies have been successfully installed."
-//     } catch (Exception e) {
-//         echo "Error while installing dependencies: ${e.message}"
-//         currentBuild.result = 'FAILURE'
-//     }
-// }
-
-
-// // Reusable function for installing dependencies
-// def installDependencies() {
-//     sh '''
-//         sudo apt-get update
-//         sudo apt-get -y install python3-pip
-//         sudo pip install -r requirements.txt
-//     '''
-//     echo "Dependencies have been successfully installed."
-// }
-
 
 // main pipeline script
 
@@ -288,6 +67,12 @@ def call(String message) {
             stage('Fetch Secrets and Processing') {
                 steps {
                     echo "Fetching secrets and performing processing... Message: ${message}"
+                }
+            }
+
+            stage('Upload Logs to Azure Blob Storage') {
+                steps {
+                    echo "uploading logs to Azure blog storage... Message: ${message}"
                 }
             }
         }
