@@ -104,6 +104,10 @@ def call(String message) {
                     echo "uploading logs to Azure blog storage... Message: ${message}"
                 }
             }
+            
+             post {
+             always {
+                echo 'Reusable Workflow Completed Successfully.'
         }
     }
 }
