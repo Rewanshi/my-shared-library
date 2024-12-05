@@ -1,6 +1,6 @@
 def call(String message) {
     pipeline {
-        agent { label 'test_alert' }
+        agent { label agentLabel }
 
         stages {
             stage('Checkout Code') {
@@ -11,6 +11,9 @@ def call(String message) {
 
             stage('Setup Python Environment') {
                 steps {
+                    sh 'sudo apt-get -y install python3.10-full'
+                    sh 'sudo python3 -m venv venv'
+                    sh '. venv/bin/activate'
                 
                     echo "Setting up Python environment... Message: ${message}"
                 }
