@@ -1,6 +1,6 @@
 def call(String message) {
     pipeline {
-        agent {label 'test_alert'}
+        agent { label 'test_alert' }
 
         stages {
             stage('Checkout Code') {
@@ -17,6 +17,11 @@ def call(String message) {
 
             stage('Install Google Chrome') {
                 steps {
+                    sh '''
+                        sudo apt-get install -y wget
+                        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                        sudo apt install -y --allow-downgrades ./google-chrome-stable_current_amd64.deb
+                    '''
                     echo "Installing Google Chrome... Message: ${message}"
                 }
             }
