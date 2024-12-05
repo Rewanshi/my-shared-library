@@ -1,6 +1,6 @@
 def call(String message) {
     pipeline {
-        agent any
+        agent {label 'test_alert'}
 
         stages {
             stage('Checkout Code') {
