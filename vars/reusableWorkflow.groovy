@@ -30,12 +30,12 @@ def installGoogleChrome() {
      echo "install dependencies has been done successfully."
 }
 
-def checkoutCode(String branch, String credentialsId, String repositoryUrl) {
-    sh """
-        git clone -b ${branch} ${repositoryUrl}
-    """
-    echo "Checked out the repository '${repositoryUrl}' on branch '${branch}'."
-}
+// def checkoutCode(String branch, String credentialsId, String repositoryUrl) {
+//     sh """
+//         git clone -b ${branch} ${repositoryUrl}
+//     """
+//     echo "Checked out the repository '${repositoryUrl}' on branch '${branch}'."
+// }
 
 def call(String message, Map config = [:]) {
     pipeline {
@@ -45,7 +45,7 @@ def call(String message, Map config = [:]) {
                 steps { 
                     script {
                         echo "Checking out the repository... Message: ${message}"
-                        checkoutCode(config.branch, config.credentialsId, config.repositoryUrl)
+                        // checkoutCode(config.branch, config.credentialsId, config.repositoryUrl)
                     }
                     // echo "Checking out the repository... Message: ${message}"
                     
