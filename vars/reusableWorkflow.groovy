@@ -1,15 +1,18 @@
 def setupPythonEnvironment() {
     sh '''
-        sudo apt-get update
-        sudo apt-get -y install python3.10 python3.10-venv python3.10-distutils
-        python3.10 -m venv $WORKSPACE/venv
-        . $WORKSPACE/venv/bin/activate
-        pip install --upgrade pip
-        if [ -f "requirements.txt" ]; then
-            pip install -r requirements.txt
-        else
-            echo "requirements.txt not found."
-        fi
+        // sudo apt-get update
+        // sudo apt-get -y install python3.10 python3.10-venv python3.10-distutils
+        // python3.10 -m venv $WORKSPACE/venv
+        // . $WORKSPACE/venv/bin/activate
+        // pip install --upgrade pip
+        // if [ -f "requirements.txt" ]; then
+        //     pip install -r requirements.txt
+        // else
+        //     echo "requirements.txt not found."
+        // fi
+        sudo apt-get -y install python3.10-full
+        sudo python3 -m venv venv
+        . venv/bin/activate
     '''
     echo "Python environment set up successfully."
 }
