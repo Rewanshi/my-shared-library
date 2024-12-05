@@ -1,6 +1,6 @@
 def call(String message) {
     pipeline {
-        agent { label test_alert }
+        agent { label 'test_alert' }
 
         stages {
             stage('Checkout Code') {
@@ -11,28 +11,33 @@ def call(String message) {
 
             stage('Setup Python Environment') {
                 steps {
-                
                     echo "Setting up Python environment... Message: ${message}"
                 }
             }
 
             stage('Install Google Chrome') {
                 steps {
+                    // Uncomment the following block if you need to install Chrome
+                    /*
                     sh '''
                         sudo apt-get install -y wget
                         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                         sudo apt install -y --allow-downgrades ./google-chrome-stable_current_amd64.deb
                     '''
+                    */
                     echo "Installing Google Chrome... Message: ${message}"
                 }
             }
 
             stage('Install Dependencies') {
                 steps {
+                    // Uncomment the following block if you need to install dependencies
+                    /*
                     sh '''
                         sudo apt-get -y install python3-pip
                         sudo pip install -r requirements.txt
                     '''
+                    */
                     echo "Installing required dependencies... Message: ${message}"
                 }
             }
@@ -45,9 +50,6 @@ def call(String message) {
         }
     }
 }
-
-
-
 
 
 
