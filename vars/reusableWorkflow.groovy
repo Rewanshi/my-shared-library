@@ -1,32 +1,25 @@
-
-
-def setupPythonEnvironment() {
-    steps {
-        // sh 'sudo apt-get -y install python3.10-full'
-        // sh 'sudo python3 -m venv venv'
-        // sh '. venv/bin/activate'
-        echo "python setup"
-    }
+def sayHello(message) {
+    echo "Message from pipeline: ${message}"
 }
 
 def installGoogleChrome() {
-    steps {
-        sh '''
+    echo "Installing Google Chrome..."
+    sh '''
         sudo apt-get update
         sudo apt-get install -y wget
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo apt install -y --allow-downgrades ./google-chrome-stable_current_amd64.deb
-        '''
-    }
+    '''
 }
 
 def installDependencies() {
-    steps {
-        // sh 'sudo apt-get -y install python3-pip'
-        // sh 'sudo pip install -r requirements.txt'
-        echo "install dependencies"
-    }
+    echo "Installing dependencies..."
+    sh '''
+        sudo apt-get -y install python3-pip
+        sudo pip install -r requirements.txt
+    '''
 }
+
 
 
 
