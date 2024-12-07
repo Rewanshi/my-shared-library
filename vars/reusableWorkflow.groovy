@@ -25,7 +25,7 @@ def installDependencies() {
     echo "Installing dependencies..."
     sh '''
         sudo apt-get -y install python3-pip
-        sudo pip install -r requirements.txt
+        sudo pip install -r vars/requirements.txt
     '''
 }
 
