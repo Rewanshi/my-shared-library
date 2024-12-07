@@ -2,6 +2,15 @@ def sayHello(message) {
     echo "Message from pipeline: ${message}"
 }
 
+def setupPythonEnvironment() {
+    echo "Setting up Python Environment..."
+    sh '''
+        sudo apt-get -y install python3.10-full
+        sudo python3 -m venv venv
+        . venv/bin/activate
+    '''
+}
+
 def installGoogleChrome() {
     echo "Installing Google Chrome..."
     sh '''
